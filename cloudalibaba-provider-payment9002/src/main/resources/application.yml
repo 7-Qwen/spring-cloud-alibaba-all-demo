@@ -1,0 +1,17 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: nacos-payment-provider
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 10.0.0.129:1111 #配置集群Nacos
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+

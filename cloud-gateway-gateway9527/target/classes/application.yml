@@ -1,0 +1,33 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: cloud-provider-hystrix-payment-8001-routh
+          uri: http://localhost:8001
+          predicates:
+          - Path=/provider/*
+
+        - id: cloud-provider-eureka-loadblance-routh
+          uri: lb://cloud-payment-service
+          predicates:
+            - Path=/payment/*
+
+eureka:
+  instance:
+    hostname: cloud-gateway-service
+  client: #服务提供者provider注册进eureka服务列表内
+    service-url:
+      register-with-eureka: true
+      fetch-registry: true
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+
+
+
